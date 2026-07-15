@@ -50,32 +50,27 @@ BASE_BUILD_CMD    := conda build $(SIMB_CONDA_CHANNEL) -m conda-recipes/conda_bu
 ## --- Simulators (local dev build, no conda) --------------------------------
 
 # Every simulator in the repo. Each lives in a directory of the same name whose
-# self-contained rules.mk exposes `all` (build), `install`, and `clean`. Adding
-# a new simulator is a one-word edit here plus its rules.mk.
+# self-contained Makefile exposes `all` (build), `install`, and `clean`. Adding
+# a new simulator is a one-word edit here plus its Makefile.
 SIMS := memnic memswitch netmem
 
+# Forward the toolchain + paths to every sub-make via the environment. Each sim
+# uses whichever of CC/CXX it needs, and all of them read PREFIX and the
+# SIMBRICKS_*_DIR paths (the latter locate the static archives to link against).
+export CC CXX PREFIX SIMBRICKS_INC_DIR SIMBRICKS_LIB_DIR
+
 # $(call sim_rules,<dir>) — generate build/install/clean targets for one sim.
-# We forward the whole toolchain + paths uniformly; each sim uses whichever of
-# CC/CXX it needs. `install` depends on the binary inside rules.mk, so the full
-# var set is forwarded there too (not just PREFIX) for the archive prerequisites.
 define sim_rules
 .PHONY: $(1)-build $(1)-install $(1)-clean
 
 $(1)-build:
-	$$(MAKE) -C $(1) -f rules.mk all \
-	    CC="$$(CC)" CXX="$$(CXX)" \
-	    SIMBRICKS_INC_DIR="$$(SIMBRICKS_INC_DIR)" \
-	    SIMBRICKS_LIB_DIR="$$(SIMBRICKS_LIB_DIR)"
+	$$(MAKE) -C $(1) all
 
 $(1)-install: $(1)-build
-	$$(MAKE) -C $(1) -f rules.mk install \
-	    CC="$$(CC)" CXX="$$(CXX)" \
-	    SIMBRICKS_INC_DIR="$$(SIMBRICKS_INC_DIR)" \
-	    SIMBRICKS_LIB_DIR="$$(SIMBRICKS_LIB_DIR)" \
-	    PREFIX="$$(PREFIX)"
+	$$(MAKE) -C $(1) install
 
 $(1)-clean:
-	$$(MAKE) -C $(1) -f rules.mk clean
+	$$(MAKE) -C $(1) clean
 endef
 
 $(foreach s,$(SIMS),$(eval $(call sim_rules,$(s))))
