@@ -35,6 +35,9 @@ CC     ?= cc
 CXX    ?= c++
 PYTHON ?= python
 
+# Python packages
+MEMNET_BASE_PY_SIM       := memnet_base_sim_py
+
 # Optional: redirect conda-build output, e.g. OUTPUT_FOLDER=./conda-out.
 OUTPUT_FOLDER     ?=
 OUTPUT_FLAG       := $(if $(OUTPUT_FOLDER),--output-folder $(OUTPUT_FOLDER))
@@ -83,7 +86,7 @@ sims-install: $(addsuffix -install,$(SIMS))
 
 # Editable install for local development (not used by the conda build).
 python-develop:
-	$(PYTHON) -m pip install -e ./simbricks-netmem-base-python
+	$(PYTHON) -m pip install -e ./$(MEMNET_BASE_PY_SIM)
 
 ## --- Conda packages --------------------------------------------------------
 
@@ -101,10 +104,10 @@ conda-packages: python-conda sim-bin-conda
 ## --- PyPI packages ---------------------------------------------------------
 
 pypi-build:
-	poetry build -C ./simbricks-netmem-base-python
+	poetry build -C ./$(MEMNET_BASE_PY_SIM)
 
 pypi-publish: pypi-build
-	poetry publish -C ./simbricks-netmem-base-python
+	poetry publish -C ./$(MEMNET_BASE_PY_SIM)
 
 ## --- Default target --------------------------------------------------------
 
@@ -114,3 +117,4 @@ all: conda-packages
 ## --- Housekeeping ----------------------------------------------------------
 
 clean: $(addsuffix -clean,$(SIMS))
+	rm -rf $(MEMNET_BASE_PY_SIM)/dist

@@ -20,40 +20,6 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-{% set name = "simbricks-memnet-base-sim-py" %}
+from .memnet import MemSwitchNet
 
-package:
-  name: {{ name|lower }}
-  version: {{ simbricks_version }}
-
-source:
-  path: ../../memnet_base_sim_py
-
-build:
-  noarch: python
-  number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-
-requirements:
-  host:
-    - python >=3.10
-    - poetry-core >=1.0.0
-    - pip
-  run:
-    - python >=3.10
-    - simbricks-orchestration >=0.4.2
-    - simbricks-utils >=0.4.2
-
-test:
-  imports:
-    - simbricks.components.memnet.simulation.base
-
-about:
-  home: https://www.simbricks.io/
-  license: MIT
-  summary: Basic network device models integration into SimBricks
-  dev_url: https://github.com/simbricks/component-memnet-base
-
-extra:
-  recipe-maintainers:
-    - Team SimBricks <team@simbricks.io>
+__all__ = ["MemSwitchNet"]
