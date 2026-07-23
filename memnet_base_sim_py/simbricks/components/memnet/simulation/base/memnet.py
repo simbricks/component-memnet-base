@@ -36,7 +36,7 @@ class MemSwitchNet(sim_net.NetSim):
     def __init__(
         self,
         simulation: sim_base.Simulation,
-        executable: str = "sims/mem/memswitch/memswitch",
+        executable: str = "simb_net_memswitch",
         relative_pcap_filepath: str | None = None,
     ) -> None:
         super().__init__(
