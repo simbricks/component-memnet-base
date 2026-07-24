@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 package:
-  name: simbricks-netmem-base-sim-bin
+  name: simbricks-memnet-base-sim-bin
   version: {{ simbricks_version }}
 
 source:
@@ -43,7 +43,7 @@ requirements:
 
   run:
     # Co-built python package, pinned to the exact version we build here.
-    - simbricks-netmem-base-sim-py =={{ simbricks_version }}
+    - simbricks-memnet-base-sim-py =={{ simbricks_version }}
 
 about:
   home: {{ homepage }}
