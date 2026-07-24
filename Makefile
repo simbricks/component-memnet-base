@@ -92,11 +92,11 @@ python-develop:
 
 # Build the noarch python conda package.
 python-conda:
-	$(BASE_BUILD_CMD) conda-recipes/simbricks-netmem-base-sim-py
+	$(BASE_BUILD_CMD) conda-recipes/simbricks-memnet-base-sim-py
 
 # Build the compiled simulator conda package.
 sim-bin-conda: python-conda
-	$(BASE_BUILD_CMD) conda-recipes/simbricks-netmem-base-sim-bin
+	$(BASE_BUILD_CMD) conda-recipes/simbricks-memnet-base-sim-bin
 
 # Build both conda packages in dependency order.
 conda-packages: python-conda sim-bin-conda
