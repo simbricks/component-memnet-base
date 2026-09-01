@@ -77,7 +77,7 @@ class MemSwitchNet(sim_net.NetSim):
             sim_base.Simulator.get_unique_latency_period_sync(channels=channels)
         )
 
-        cmd = f"{self._executable} -S {sync_period} -E {eth_latency}"
+        cmd = f"{self._executable} -S {sync_period.picoseconds} -E {eth_latency.picoseconds}"
 
         if not run_sync:
             cmd += " -u"

@@ -366,11 +366,11 @@ int main(int argc, char *argv[]) {
     cur_ts = strtoull(argv[6], NULL, 0);
   if (argc >= 8)
     memParams.sync_interval = netParams.sync_interval =
-        strtoull(argv[7], NULL, 0) * 1000ULL;
+        strtoull(argv[7], NULL, 0);
   if (argc >= 9)
-    memParams.link_latency = strtoull(argv[8], NULL, 0) * 1000ULL;
+    memParams.link_latency = strtoull(argv[8], NULL, 0);
   if (argc >= 10)
-    netParams.link_latency = strtoull(argv[9], NULL, 0) * 1000ULL;
+    netParams.link_latency = strtoull(argv[9], NULL, 0);
 
   memParams.sock_path = argv[1];
   netParams.sock_path = argv[2];

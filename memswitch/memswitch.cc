@@ -503,11 +503,11 @@ int main(int argc, char *argv[]) {
         break;
 
       case 'S':
-        netParams.sync_interval = strtoull(optarg, NULL, 0) * 1000ULL;
+        netParams.sync_interval = strtoull(optarg, NULL, 0);
         break;
 
       case 'E':
-        netParams.link_latency = strtoull(optarg, NULL, 0) * 1000ULL;
+        netParams.link_latency = strtoull(optarg, NULL, 0);
         break;
 
       case 'p':

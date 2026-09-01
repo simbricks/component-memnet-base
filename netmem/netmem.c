@@ -221,9 +221,9 @@ int main(int argc, char *argv[]) {
   if (argc >= 9)
     cur_ts = strtoull(argv[8], NULL, 0);
   if (argc >= 10)
-    netParams.sync_interval = strtoull(argv[9], NULL, 0) * 1000ULL;
+    netParams.sync_interval = strtoull(argv[9], NULL, 0);
   if (argc >= 11)
-    netParams.link_latency = strtoull(argv[10], NULL, 0) * 1000ULL;
+    netParams.link_latency = strtoull(argv[10], NULL, 0);
 
   size = strtoull(argv[1], NULL, 0);
   base_addr = strtoull(argv[2], NULL, 0);
